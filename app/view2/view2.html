@@ -1,17 +1,17 @@
 <div class="search-header">
 	<img class="logo" src="assets/InfoSearch_Logo.JPG" alt="" ng-click="goToHomePage()">
-	<form>
-		<input type="text" class="form-control input" aria-label="Search input" ng-model="searchInput" required>
-		<button class="btn btn-primary submit" type="submit" ng-click="fetchResultsForQuery()">Search</button>
-	</form>
+	<input type="text" class="form-control input" aria-label="Search input" ng-model="searchInput" required>
+	<button class="btn btn-primary submit" type="button" ng-click="fetchResultsForQuery()">Search</button>
 </div>
+
 
 <div class="content row">
 	<div class="col-lg-2">
-		<div class="filter-title">
-			Filters
-		</div>
-		
+		<div id="google_translate_element"></div><script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true}, 'google_translate_element');
+}
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 		<div id="accordion" class="filter" ng-class="{'expand': expandFilter}">
   <div class="card">
     <div class="card-header" id="headingOne">
@@ -26,31 +26,31 @@
       <div class="card-body">
        <div class="entries">
 				<div class="">
-					<input class="radio" type="radio" value="en" name="language" ng-model="filters.language">
+					<input class="radio" type="radio" value="en" name="language">
 					<label >
 						English
 					</label>
 				</div>
 				<div class="">
-					<input class="radio" type="radio" value="hi" name="language" ng-model="filters.language">
+					<input class="radio" type="radio" value="hi" name="language">
 					<label >
 						Hindi
 					</label>
 				</div>
 				<div class="">
-					<input class="radio" type="radio" value="th" name="language" ng-model="filters.language">
+					<input class="radio" type="radio" value="th" name="language">
 					<label >
 						Thai
 					</label>
 				</div>
 				<div class="">
-					<input class="radio" type="radio" value="fr" name="language" ng-model="filters.language">
+					<input class="radio" type="radio" value="fr" name="language">
 					<label >
 						French
 					</label>
 				</div>
 				<div class="">
-					<input class="radio" type="radio" value="es" name="language" ng-model="filters.language">
+					<input class="radio" type="radio" value="es" name="language">
 					<label >
 						Spanish
 					</label>
@@ -71,31 +71,31 @@
       <div class="card-body">
        <div class="entries">
 				<div class="">
-					<input class="radio" type="radio" value="nyc" name="city" ng-model="filters.city">
+					<input class="radio" type="radio" value="en" name="language">
 					<label >
 						New York
 					</label>
 				</div>
 				<div class="">
-					<input class="radio" type="radio" value="mexico city" name="city" ng-model="filters.city">
+					<input class="radio" type="radio" value="hi" name="language">
 					<label >
 						Mexico City
 					</label>
 				</div>
 				<div class="">
-					<input class="radio" type="radio" value="delhi" name="city" ng-model="filters.city">
+					<input class="radio" type="radio" value="th" name="language">
 					<label >
 						Delhi
 					</label>
 				</div>
 				<div class="">
-					<input class="radio" type="radio" value="paris" name="city" ng-model="filters.city">
+					<input class="radio" type="radio" value="fr" name="language">
 					<label >
 						Thailand
 					</label>
 				</div>
 				<div class="">
-					<input class="radio" type="radio" value="bangkok" name="city" ng-model="filters.city">
+					<input class="radio" type="radio" value="es" name="language">
 					<label >
 						Bangkok
 					</label>
@@ -105,7 +105,7 @@
 
     </div>
   </div>
-  <!-- <div class="card">
+  <div class="card">
     <div class="card-header" id="headingThree">
       <h5 class="mb-0">
         <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -118,50 +118,38 @@
        
       </div>
     </div>
-	</div> -->
-	<div class="filter-buttons">
-		<button class="btn btn-primary" type="button" ng-click="applyFilters()">Apply</button>
-		<button class="btn btn-primary" type="button" ng-click="clearFilters()">Clear</button>
-	</div>
+  </div><button class="btn btn-primary submit" type="button" ng-click="">Filter</button>
 </div>
 	</div>
 	<div class=" col-lg-5">
-		<div ng-show="hideSpinner">
-			<div class="result" ng-repeat="result in slicedResults track by $index">
-				<div class="username" ng-click="gotoUser(result)">@{{result.user_name[0]}}</div>
-				<div class="target-url" ng-click="openUrl(result)">https://twitter.com/{{result.user_name[0]}}/status/{{result.tweet_id}}</div>
-				<div class="text">
-					{{result.text_en}}
-					{{result.text_th}}
-					{{result.text_hi}}
-					{{result.text_es}}
-					{{result.text_fr}}
-				</div>
+		<div class="result" ng-repeat="result in slicedResults track by $index">
+			<div class="username" ng-click="gotoUser(result)">@{{result.user_name[0]}}</div>
+			<div class="target-url" ng-click="openUrl(result)">https://twitter.com/{{result.user_name[0]}}/status/{{result.tweet_id}}</div>
+			<div class="text">
+				{{result.text_en}}
+				{{result.text_th}}
+				{{result.text_hi}}
+				{{result.text_es}}
+				{{result.text_fr}}
 			</div>
-			<div ng-show="slicedResults.length === 0" class="zero-results">
-				<i>Zero results.</i>
-			</div>
-			<ul ng-if="pager.pages.length" class="pagination">
-				<li class="page-item" ng-class="{disabled:pager.currentPage === 1}">
-					<a class="page-link" ng-click="setPage(1)">First</a>
-				</li>
-				<li class="page-item" ng-class="{disabled:pager.currentPage === 1}">
-					<a class="page-link" ng-click="setPage(pager.currentPage - 1)">Previous</a>
-				</li>
-				<li class="page-item" ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
-					<a class="page-link" ng-click="setPage(page)">{{page}}</a>
-				</li>
-				<li class="page-item" ng-class="{disabled:pager.currentPage === pager.totalPages}">
-					<a class="page-link" ng-click="setPage(pager.currentPage + 1)">Next</a>
-				</li>
-				<li class="page-item" ng-class="{disabled:pager.currentPage === pager.totalPages}">
-					<a class="page-link" ng-click="setPage(pager.totalPages)">Last</a>
-				</li>
-			</ul>
 		</div>
-		<div ng-show="!hideSpinner" class="spinner">
-			<div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-		</div>
+		<ul ng-if="pager.pages.length" class="pagination">
+			<li class="page-item" ng-class="{disabled:pager.currentPage === 1}">
+				<a class="page-link" ng-click="setPage(1)">First</a>
+			</li>
+			<li class="page-item" ng-class="{disabled:pager.currentPage === 1}">
+				<a class="page-link" ng-click="setPage(pager.currentPage - 1)">Previous</a>
+			</li>
+			<li class="page-item" ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+				<a class="page-link" ng-click="setPage(page)">{{page}}</a>
+			</li>
+			<li class="page-item" ng-class="{disabled:pager.currentPage === pager.totalPages}">
+				<a class="page-link" ng-click="setPage(pager.currentPage + 1)">Next</a>
+			</li>
+			<li class="page-item" ng-class="{disabled:pager.currentPage === pager.totalPages}">
+				<a class="page-link" ng-click="setPage(pager.totalPages)">Last</a>
+			</li>
+		</ul>
 	</div>
 	<div class="col-lg-5">
 		<div class="card">
