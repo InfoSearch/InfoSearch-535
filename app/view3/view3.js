@@ -143,7 +143,6 @@ angular.module('myApp.view3', ['ngRoute'])
           var lang = entry.tweet_lang[0];
           text += entry['text_' + lang];
         }
-        debugger;
         return text;
       }
  
